@@ -291,8 +291,20 @@ onEvent("growlButton2", "click", function(){
   setScreen("charmanderFinalBattleScreen");
   charmanderHealth=60;
   enemyHealth=100;
+  setText("mainCharacterHealth3", charmanderHealth);
   }
 });  
+onEvent("scratchButton2", "click", function(){
+  scratch();
+  charmanderHealth=charmanderHealth- randomNumber(1,10);
+  setText("mainCharacterHealth2", charmanderHealth);
+  if (enemyHealth<=0) {
+  setScreen("charmanderFinalBattleScreen");
+  charmanderHealth=60;
+  enemyHealth=100;
+  setText("mainCharacterHealth3", charmanderHealth);
+  }
+});
 setText("health_label3", enemyHealth);
 setText("nameOfPokemon3", "Charmander");
 onEvent("fightButton3", "click", function(){
@@ -308,6 +320,10 @@ onEvent("exitButton3","click",function(){
   hideElement("growlButton3");
   hideElement("exitButton3");
   showElement("nameOfPokemon3");
+  hideElement("numberOfPotions3");
+  hideElement("numberOfPokeballs3");
+  hideElement("pokeballButton3");
+  hideElement("healthPotionButton3");
 });
 onEvent("scratchButton3", "click", function(){
   scratch();
@@ -329,7 +345,7 @@ onEvent("bagButton3","click", function(){
   showElement("exitButton3");
   showElement("coverScreen3");
   hideElement("nameOfPokemon3");
-  showElement("PokeballButton3");
+  showElement("pokeballButton3");
   showElement("healthPotionButton3");
   showElement("numberOfPokeballs3");
   showElement("numberOfPotions3");
@@ -344,7 +360,25 @@ onEvent("runButton3","click", function(){
     showElement("exitButton1");
     hideElement("nameOfPokemon1");
 });
-
+onEvent("healthPotionButton3", "click", function(){
+  if (totalHealthPotion<1) {
+     charmanderHealth=charmanderHealth+0;
+    hideElement("healthPotionButton3");
+    showElement("coverScreen3");
+    setText("coverScreen3", "No potions left!");
+    hideElement("PokeballButton3");
+    hideElement("numberOfPokeballs3");
+    hideElement("numberOfPotions3");
+    hideElement("growlButton3");
+    hideElement("scratchButton3");
+  } else {
+    charmanderHealth=charmanderHealth+15;
+  totalHealthPotion=totalHealthPotion-1;
+  setText("mainCharacterHealth3", charmanderHealth);
+  setText("numberOfPotions3","x"+totalHealthPotion);
+  }
+  });
+//onEvent("healthPotionButton2")
 //scratch();
   //charmanderHealth=charmanderHealth- randomNumber(1,5);
   //setText("mainCharacterHealth1", charmanderHealth);
