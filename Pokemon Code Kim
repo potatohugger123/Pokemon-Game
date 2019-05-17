@@ -1,0 +1,354 @@
+//Status: Fight Button done for cVs screen, run button done for cVs screen
+//Need Work for Bag button and pokemon change button
+//Need for other Pokemon to fight back
+
+var charmanderHealth=45;
+var squirtleHealth=45;
+var bulbasaurHealth=45;
+var enemyHealth=45;
+var totalHealthPotion=3;
+var totalPokeballs=3;
+var playerHealth = [charmanderHealth, squirtleHealth, bulbasaurHealth];
+var pokemonList = [charmander, squirtle, bulbasaur];
+var pokemonImageList = ["https://thumbs.gfycat.com/EcstaticGloomyCavy-max-1mb.gif", "https://66.media.tumblr.com/ddd22fe10a485ed56a46d958c058a970/tumblr_n9lnpepqkW1scncwdo1_500.gif", "https://thumbs.gfycat.com/HopefulGreatIndianjackal-max-1mb.gif"];
+function clear(textArea) {
+  setText(textArea," ");
+}
+function charmander() {
+  charmanderHealth;
+}
+function scratch() {
+  enemyHealth=enemyHealth-10;
+  setText("healthLabel1", enemyHealth);
+  setText("healthLabel2", enemyHealth);
+  setText("health_label3",enemyHealth);
+}
+
+
+function growl() {
+  enemyHealth=enemyHealth-5;
+  setText("healthLabel1", enemyHealth);
+  setText("healthLabel2", enemyHealth);
+  setText("health_label3",enemyHealth);
+}
+function pound() {
+  
+}
+function tackle(){
+  
+}
+function tailWhip(){
+  enemyHealth=enemyHealth-10;
+  setText("healthLabel1", enemyHealth);
+  setText("healthLabel2", enemyHealth);
+  setText("health_label3",enemyHealth);
+}
+function bulbasaur() {
+  bulbasaurHealth;
+}
+function squirtle() {
+  enemyHealth;
+}
+onEvent("playButton", "click", function(){
+setScreen("ChoosePokemonScreen");
+});
+//0 is char 1 is squirtle 2 is bulb
+onEvent("rotatingPokeBall2","mouseover", function(){
+  showElement("Squirtle");
+});
+onEvent("rotatingPokeBall2","mouseout", function(){
+  hideElement("Squirtle");
+});
+onEvent("rotatingPokeBall2","click",function(){
+  hideElement("Squirtle");
+  pokemonList[1];
+ setImageURL("enemyImage2", pokemonImageList[0] );
+  setImageURL("enemyImage3", pokemonImageList[2]);
+setText("mainCharacterHealth1", charmanderHealth);
+setScreen("charmanderVSquirtleScreen");
+ setText("nameOfPokemon1","Charmander");
+ setText("healthLabel1", enemyHealth);
+});
+onEvent("rotatingPokeBall3","mouseover", function(){
+  showElement("Bulbasaur");
+});
+onEvent("rotatingPokeBall3","mouseout", function(){
+  hideElement("Bulbasaur");
+});
+onEvent("rotatingPokeBall3","click",function(){
+  pokemonList[1];
+ setImageURL("enemyImage2", pokemonImageList[0] );
+  setImageURL("enemyImage3", pokemonImageList[1]);
+setText("mainCharacterHealth1", charmanderHealth);
+setScreen("charmanderVSquirtleScreen");
+ setText("nameOfPokemon1","Bulbasaur");
+ setText("healthLabel1", enemyHealth);
+});
+onEvent("rotatingPokeBall1","mouseover", function(){
+  showElement("Charmander");
+});
+onEvent("rotatingPokeBall1","mouseout", function(){
+  hideElement("Charmander");
+});
+onEvent("rotatingPokeBall1", "click", function(){
+pokemonList[0];
+ setImageURL("enemyImage2", pokemonImageList[1] );
+  setImageURL("enemyImage3", pokemonImageList[2]);
+setText("mainCharacterHealth1", charmanderHealth);
+setScreen("charmanderVSquirtleScreen");
+ setText("nameOfPokemon1","Charmander");
+ setText("healthLabel1", enemyHealth);
+ setText("growlButton1", "Growl");
+ setText("growlButton2", "Growl");
+ setText("growlButton3", "Growl");
+});
+onEvent("fightButton", "click", function(){
+  showElement("growlButton1");
+  showElement("scratchButton1");
+  showElement("coverScreen1");
+  showElement("exitButton1");
+  hideElement("nameOfPokemon1");
+});
+onEvent("bagButton","click", function(){
+  showElement("exitButton1");
+  showElement("coverScreen1");
+  hideElement("nameOfPokemon1");
+  showElement("PokeballButton");
+  showElement("healthPotionButton");
+  showElement("numberOfPokeballs1");
+  showElement("numberOfPotions1");
+});
+onEvent("PokeballButton","click",function(){
+  totalPokeballs=totalPokeballs-1;
+  if (("enemyHealth"<20||randomNumber(0,10)<11)&&(totalPokeballs<0)) {
+    setScreen("charmanderVBulbasaurScreen");
+  } else {
+    if (totalPokeballs>0) {
+    showElement("coverScreen1");
+    setText("coverScreen1", "No Pokeballs left!");
+    hideElement("PokeballButton");
+    hideElement("numberOfPokeballs1");
+    hideElement("numberOfPotions1");
+    hideElement("healthPotionButton");
+    }
+    }
+  });
+
+onEvent("healthPotionButton", "click", function(){
+  if (totalHealthPotion<1) {
+     charmanderHealth=charmanderHealth+0;
+    hideElement("healthPotionButton");
+    showElement("coverScreen1");
+    setText("coverScreen1", "No potions left!");
+    hideElement("PokeballButton");
+    hideElement("numberOfPokeballs1");
+    hideElement("numberOfPotions1");
+  } else {
+    charmanderHealth=charmanderHealth+15;
+  totalHealthPotion=totalHealthPotion-1;
+  setText("mainCharacterHealth1", charmanderHealth);
+  setText("numberOfPotions1","x"+totalHealthPotion);
+  }
+  });
+  
+onEvent("changePokemon", "click", function(){
+  
+});
+onEvent("buttonRun","click",function(){
+  randomNumber(0,10);
+  if (randomNumber(0,10)<7)
+    setScreen("charmanderVBulbasaurScreen");
+  else
+    showElement("coverScreen1");
+    setText("coverScreen1", "You were not able to run away!");
+    showElement("exitButton1");
+    hideElement("nameOfPokemon1");
+});
+onEvent("exitButton1","click",function(){
+  hideElement("growlButton1");
+  hideElement("scratchButton1");
+  hideElement("exitButton1");
+  hideElement("coverScreen1");
+  showElement("nameOfPokemon1");
+  hideElement("PokeballButton");
+  hideElement("healthPotionButton");
+  clear("coverScreen1");
+  hideElement("numberOfPokeballs1");
+  hideElement("numberOfPotions1");
+  if (totalHealthPotion===0){
+    hideElement("healthPotionButton");
+    hideElement("numberOfPotions1");
+  }
+});
+squirtle();
+onEvent("scratchButton1", "click", function(){
+  scratch();
+  charmanderHealth=charmanderHealth- randomNumber(1,5);
+  setText("mainCharacterHealth1", charmanderHealth);
+  if (enemyHealth<=0) {
+  setScreen("charmanderVBulbasaurScreen");
+  charmanderHealth=45;
+  enemyHealth=45;
+  
+}
+});  
+
+onEvent("growlButton1", "click", function(){
+  growl();
+  charmanderHealth=charmanderHealth- randomNumber(1,5);
+  setText("mainCharacterHealth1", charmanderHealth);
+  if (enemyHealth<=0) {
+  setScreen("charmanderVBulbasaurScreen");
+  charmanderHealth=45;
+  enemyHealth=45;
+  
+  }
+});  
+onEvent("fightButton2", "click", function(){
+  showElement("growlButton2");
+  showElement("scratchButton2");
+  showElement("coverScreen2");
+  showElement("exitButton2");
+  hideElement("nameOfPokemon2");
+});
+onEvent("bagButton2","click", function(){
+  showElement("exitButton2");
+  showElement("coverScreen2");
+  hideElement("nameOfPokemon2");
+  showElement("PokeballButton2");
+  showElement("healthPotionButton2");
+  showElement("numberOfPokeballs2");
+  showElement("numberOfPotions2");
+});
+onEvent("healthPotionButton2", "click", function(){
+  if (totalHealthPotion<1) {
+     charmanderHealth=charmanderHealth+0;
+    hideElement("healthPotionButton2");
+    showElement("coverScreen2");
+    setText("coverScreen2", "No potions left!");
+    hideElement("PokeballButton2");
+    hideElement("numberOfPokeballs2");
+    hideElement("numberOfPotions2");
+  } else {
+    charmanderHealth=charmanderHealth+15;
+  totalHealthPotion=totalHealthPotion-1;
+  setText("mainCharacterHealth2", charmanderHealth);
+  setText("numberOfPotions2","x"+totalHealthPotion);
+  }
+  });
+onEvent("changePokemon2", "click", function(){
+  
+});
+onEvent("buttonRun2","click",function(){
+  randomNumber(0,10);
+  if (randomNumber(0,10)<8)
+    setScreen("charmanderFinalBattleScreen");
+  else
+    showElement("coverScreen1");
+    setText("coverScreen1", "You were not able to run away!");
+    showElement("exitButton1");
+    hideElement("nameOfPokemon1");
+});
+onEvent("exitButton2","click",function(){
+   hideElement("growlButton2");
+  hideElement("scratchButton2");
+  hideElement("exitButton2");
+  hideElement("coverScreen2");
+  showElement("nameOfPokemon2");
+  hideElement("PokeballButton2");
+  hideElement("healthPotionButton2");
+  clear("coverScreen2");
+  hideElement("numberOfPokeballs2");
+  hideElement("numberOfPotions2");
+  if (totalHealthPotion===0){
+    hideElement("healthPotionButton2");
+    hideElement("numberOfPotions2");
+  }
+});
+ setText("healthLabel2", bulbasaurHealth);
+  setText("nameOfPokemon2", "Charmander");
+onEvent("scratchButton2", "click", function(){
+  scratch();
+  charmanderHealth=charmanderHealth- randomNumber(1,5);
+  setText("mainCharacterHealth2", charmanderHealth);
+  if (enemyHealth<=0) {
+  setScreen("charmanderFinalBattleScreen");
+  charmanderHealth=45;
+  enemyHealth=100;
+}
+});  
+//scratch();
+  //charmanderHealth=charmanderHealth- randomNumber(1,5);
+  //setText("mainCharacterHealth1", charmanderHealth);
+  //if (squirtleHealth<=0||bulbasaurHealth<=0) {
+  //setScreen("charmanderVBulbasaurScreen");
+  //charmanderHealth=45;
+onEvent("growlButton2", "click", function(){
+  growl();
+  charmanderHealth=charmanderHealth- randomNumber(1,5);
+  setText("mainCharacterHealth2", charmanderHealth);
+  if (enemyHealth<=0) {
+  setScreen("charmanderFinalBattleScreen");
+  charmanderHealth=60;
+  enemyHealth=100;
+  }
+});  
+setText("health_label3", enemyHealth);
+setText("nameOfPokemon3", "Charmander");
+onEvent("fightButton3", "click", function(){
+  showElement("coverScreen3");
+  showElement("scratchButton3");
+  showElement("growlButton3");
+  showElement("exitButton3");
+  hideElement("nameOfPokemon3");
+});
+onEvent("exitButton3","click",function(){
+  hideElement("coverScreen3");
+  hideElement("scratchButton3");
+  hideElement("growlButton3");
+  hideElement("exitButton3");
+  showElement("nameOfPokemon3");
+});
+onEvent("scratchButton3", "click", function(){
+  scratch();
+  charmanderHealth=charmanderHealth- randomNumber(1,10);
+  setText("mainCharacterHealth3", charmanderHealth);
+  if (enemyHealth<=0) {
+  setScreen("WinScreen");
+  }
+});
+onEvent("growlButton3", "click", function(){
+  growl();
+  charmanderHealth=charmanderHealth- randomNumber(1,5);
+  setText("mainCharacterHealth3", charmanderHealth);
+  if (enemyHealth<=0) {
+  setScreen("WinScreen");
+  }
+});  
+onEvent("bagButton3","click", function(){
+  showElement("exitButton3");
+  showElement("coverScreen3");
+  hideElement("nameOfPokemon3");
+  showElement("PokeballButton3");
+  showElement("healthPotionButton3");
+  showElement("numberOfPokeballs3");
+  showElement("numberOfPotions3");
+});
+onEvent("runButton3","click", function(){
+   randomNumber(0,10);
+  if (randomNumber(0,10)<9)
+    setScreen("WinScreen");
+  else
+    showElement("coverScreen1");
+    setText("coverScreen1", "You were not able to run away!");
+    showElement("exitButton1");
+    hideElement("nameOfPokemon1");
+});
+
+//scratch();
+  //charmanderHealth=charmanderHealth- randomNumber(1,5);
+  //setText("mainCharacterHealth1", charmanderHealth);
+  //if (squirtleHealth<=0||bulbasaurHealth<=0) {
+  //setScreen("charmanderVBulbasaurScreen");
+  //charmanderHealth=45;
+  
